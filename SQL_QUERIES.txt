@@ -1,0 +1,250 @@
+1.Write a query to display all dept names along with 
+no. of employees in that ?
+
+>select dept, count(*) from emp group by dept ;
+
+HR 2
+Mrkt 2
+IT 1
+
+2)List the number of customers in each country, ordered by the country with the most customers first.
+
+
+SELECT 
+COUNT
+(CustomerID),Country FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+
+3.Delete the column Birthday from the Persons table.
+
+
+ALTER TABLE
+ Persons
+DROP COLUMN
+ Birthday;
+
+
+3.Add a column of type DATE called Birthday.
+
+
+ALTER TABLE
+ Persons
+ADD Birthday DATE
+;
+
+
+SELECT COUNT(DISTINCT Country) FROM Customers;
+
+SELECT * FROM Customers
+WHERE Country='Germany' AND (City='Berlin' OR City='München');
+
+SELECT * FROM Customers
+ORDER BY Country, CustomerName;
+
+INSERT INTO Customers (CustomerName, City, Country)
+VALUES ('Cardinal', 'Stavanger', 'Norway');
+
+SELECT CustomerName, ContactName, Address
+FROM Customers
+WHERE Address IS NOT NULL;
+
+
+UPDATE Customers
+SET ContactName='Alfred Schmidt', City='Frankfurt'
+WHERE CustomerID=1;
+
+DELETE FROM Customers;
+
+
+DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';
+
+
+>TOP COMMAND
+SELECT TOP 3 * FROM Customers;
+
+SELECT TOP 50 PERCENT * FROM Customers;
+
+SELECT TOP 3 * FROM Customers
+WHERE Country='Germany';
+
+>LIMIT
+SELECT * FROM Customers LIMIT 3;
+
+> AGGREGATE FUNCION
+SELECT MIN(Price) AS SmallestPrice
+FROM Products; 
+
+SELECT MAX(Price) AS LargestPrice
+FROM Products; 
+
+SELECT COUNT(ProductID)
+FROM Products;
+
+SELECT AVG(Price)
+FROM Products;
+
+SELECT SUM(Quantity)
+FROM OrderDetails;
+
+> LIKE
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%or%'
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '_r%';
+
+
+SELECT * FROM Customers
+WHERE ContactName LIKE 'a%o';
+
+SELECT * FROM Customers
+WHERE CustomerName NOT LIKE 'a%';
+
+
+SELECT * FROM Customers
+WHERE City LIKE '_ondon';
+
+SELECT * FROM Customers
+WHERE City LIKE '[bsp]%';
+
+SELECT * FROM Customers
+WHERE City LIKE '[!bsp]%';
+
+>IN
+
+SELECT * FROM Customers
+WHERE Country IN ('Germany', 'France', 'UK');
+
+SELECT * FROM Customers
+WHERE Country NOT IN ('Germany', 'France', 'UK');
+
+>BETWEEN 
+
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20;
+
+SELECT * FROM Products
+WHERE Price NOT BETWEEN 10 AND 20;
+
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20
+AND CategoryID NOT IN (1,2,3);
+
+SELECT * FROM Products
+WHERE ProductName BETWEEN 'Carnarvon Tigers' AND 'Mozzarella di Giovanni'
+ORDER BY ProductName;
+
+SELECT * FROM Products
+WHERE ProductName NOT BETWEEN 'Carnarvon Tigers' AND 'Mozzarella di Giovanni'
+ORDER BY ProductName;
+
+>ALIAS
+
+SELECT CustomerID AS ID, CustomerName AS Customer
+FROM Customers;
+
+
+SELECT o.OrderID, o.OrderDate, c.CustomerName
+FROM Customers AS c, Orders AS o
+WHERE c.CustomerName='Around the Horn' AND c.CustomerID=o.CustomerID;
+
+
+>JOINS
+
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders
+ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees
+ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID;
+
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City 
+ORDER BY A.City;
+
+
+>UNION
+
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City;
+
+SELECT City FROM Customers
+UNION ALL
+SELECT City FROM Suppliers
+ORDER BY City;
+
+SELECT City, Country FROM Customers
+WHERE Country='Germany'
+UNION
+SELECT City, Country FROM Suppliers
+WHERE Country='Germany'
+ORDER BY City;
+
+SELECT City, Country FROM Customers
+WHERE Country='Germany'
+UNION ALL
+SELECT City, Country FROM Suppliers
+WHERE Country='Germany'
+ORDER BY City;
+
+>GROUP BY
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country;
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+
+SELECT Shippers.ShipperName,COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+LEFT JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+GROUP BY ShipperName;
+
+
+
+select CITY,length(CITY) from STATION 
+order by 
+length(CITY) desc, 
+CITY limit 1;
+
+
+SELECT DISTINCT(CITY) 
+    FROM STATION
+    WHERE (LOWER(CITY) LIKE 'a%'
+    OR LOWER(CITY) LIKE 'e%'
+    OR LOWER(CITY) LIKE 'i%'
+    OR LOWER(CITY) LIKE 'o%'
+    OR LOWER(CITY) LIKE 'u%')
+    AND (CITY LIKE '%a'
+    OR CITY LIKE '%e'
+    OR CITY LIKE '%i'
+    OR CITY LIKE '%o'
+    OR CITY LIKE '%u')
+
+
+
+
+
+
+
+
+
+
+
